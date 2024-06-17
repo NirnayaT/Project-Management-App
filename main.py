@@ -1,21 +1,23 @@
-from database import show_task, add_task, TaskRepository
-
-_input = int(input("""
-         *************TO DO APP USING CLI************
-         *       1. Add tasks                       *
-         *       2. Remove tasks                    *
-         *       3. Show tasks                      *
-         *       4. Exit                            *
-         ******************************************** 
-------> """))
+from functions import *
+from services import create_task,display_tasks, remove_task
 
 
-if _input == 1:
-    # task = get_task_from_user()
-    add_task()
-elif _input == 2:
-    print("task removes")
-elif _input == 3:
-    show_task()
-elif _input == 4:
-    exit()
+while True:
+    _input = int(input("""
+            *************TO DO APP USING CLI************
+            *       1. Add tasks                       *
+            *       2. Remove tasks                    *
+            *       3. Show tasks                      *
+            *       4. Exit                            *
+            ******************************************** 
+    ------> """))
+
+
+    if _input == 1:
+        create_task()#from services.py
+    elif _input == 2:
+        remove_task()#from services.py
+    elif _input == 3:
+        display_tasks()#from services.py
+    elif _input == 4:
+        break #while-loop breaks
