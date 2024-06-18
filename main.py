@@ -1,26 +1,20 @@
-from repository import *
+from fastapi import FastAPI
 from services import create_task, display_tasks, remove_task
 
+app=FastAPI()
 
-while True:
-    _input = int(
-        input(
-            """
-            *************TO DO APP USING CLI************
-            *       1. Add tasks                       *
-            *       2. Remove tasks                    *
-            *       3. Show tasks                      *
-            *       4. Exit                            *
-            ******************************************** 
-    ------> """
-        )
-    )
+@app.get("/")
+def root():
+    return{"Welcome to":"To-Do-App"}
 
-    if _input == 1:
-        create_task()  # from services.py
-    elif _input == 2:
-        remove_task()  # from services.py
-    elif _input == 3:
-        display_tasks()  # from services.py
-    elif _input == 4:
-        break  # while-loop breaks
+@app.get("/tasks")
+def show_tasks():
+    return display_tasks()
+
+@app.post("/tasks/{task}")
+def add_task(task:str):
+    return create_task(task)
+
+@app.delete("/tasks/{task_id}")
+def delete_task(task_id:int):
+    return remove_task(task_id)

@@ -22,7 +22,7 @@ class AbstractRepository(
 
 class TaskRepository(AbstractRepository):  # inherits Abstractrepository
 
-    def get(self):  # get logic
+    def get(self) -> list[Task]:  # get logic
         details = session.query(Task).all()
         return details
 
