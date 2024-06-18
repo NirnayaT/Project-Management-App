@@ -1,20 +1,20 @@
-from functions import TaskRepository
+from repository import TaskRepository
 from database import *
 
+task_instance = TaskRepository()
 
-def create_task():#method for main
-    add_ins = TaskRepository()
+
+def create_task():  # method for main
     task = input("Enter the task: ")
-    add_ins.add(task)
+    task_instance.add(task)
 
-def display_tasks():#method for main
-    get_ins = TaskRepository()
-    details = get_ins.get()
+
+def display_tasks():  # method for main
+    details = task_instance.get()
     for d in details:
-        print(d.id,'.',d.task)
+        print(d.id, ".", d.task)
 
-def remove_task():#method for main
-    remove_ins = TaskRepository()
+
+def remove_task():  # method for main
     task = int(input("Enter the no to remove: "))
-    remove_ins.remove(task)
-
+    task_instance.remove(task)
