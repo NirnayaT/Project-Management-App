@@ -1,5 +1,12 @@
 from fastapi import FastAPI
 from services import create_task, display_tasks, remove_task
+from pydantic import BaseModel
+
+class CreateTaskPayload(BaseModel):
+    task : str
+
+class RemoveTaskPayload(BaseModel):
+    task_id : int
 
 app=FastAPI()
 
@@ -11,10 +18,10 @@ def root():
 def show_tasks():
     return display_tasks()
 
-@app.post("/tasks/{task}")
-def add_task(task:str):
-    return create_task(task)
+@app.post("/tasks")
+def add_task(task: CreateTaskPayload):
+    return create_task(task), display_tasks()
 
-@app.delete("/tasks/{task_id}")
-def delete_task(task_id:int):
-    return remove_task(task_id)
+@app.delete("/tasks")
+def delete_task(task_id: RemoveTaskPayload):
+    return remove_task(task_id), display_tasks()

@@ -26,14 +26,14 @@ class TaskRepository(AbstractRepository):  # inherits Abstractrepository
         details = session.query(Task).all()
         return details
 
-    def add(self, new_task):  # add logic
+    def add(self, new_task: str):
         new_task_obj = Task(task=new_task)
         session.add(new_task_obj)
-        session.commit()  # commiting to the session
+        session.commit()
 
-    def remove(self, task_id):  # remove logic
+    def remove(self, task_id: int):
         remove_task = (
             session.query(Task).filter(Task.id == task_id).first()
-        )  # filter the task id
+        )
         session.delete(remove_task)
-        session.commit()  # commiting to the session
+        session.commit()
