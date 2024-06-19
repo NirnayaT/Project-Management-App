@@ -1,5 +1,5 @@
-from database import *
-from database import Task
+from tasks.database import *
+from tasks.database import Task
 from abc import ABC, abstractmethod
 
 
@@ -30,6 +30,7 @@ class TaskRepository(AbstractRepository):  # inherits Abstractrepository
         new_task_obj = Task(task=new_task)
         session.add(new_task_obj)
         session.commit()
+        return new_task_obj
 
     def remove(self, task_id: int):
         remove_task = (
@@ -37,3 +38,4 @@ class TaskRepository(AbstractRepository):  # inherits Abstractrepository
         )
         session.delete(remove_task)
         session.commit()
+        return remove_task
