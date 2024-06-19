@@ -10,10 +10,6 @@ class RemoveTaskPayload(BaseModel):
 
 app=FastAPI()
 
-@app.get("/")
-def root():
-    return{"Welcome to":"To-Do-App"}
-
 @app.get("/tasks")
 def show_tasks():
     return display_tasks()
