@@ -1,5 +1,5 @@
-from tasks.database import *
-from tasks.database import Task
+from database import *
+from database import Task
 from abc import ABC, abstractmethod
 
 
@@ -12,11 +12,11 @@ class AbstractRepository(
         raise NotImplementedError()
 
     @abstractmethod
-    def add(self,*args,**kwargs):
+    def add(self, *args, **kwargs):
         raise NotImplementedError()
 
     @abstractmethod
-    def remove(self,*args,**kwargs):
+    def remove(self,unique_id : int):
         raise NotImplementedError()
 
 
