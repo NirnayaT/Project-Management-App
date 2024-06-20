@@ -12,11 +12,11 @@ class AbstractRepository(
         raise NotImplementedError()
 
     @abstractmethod
-    def add(self):
+    def add(self,*args,**kwargs):
         raise NotImplementedError()
 
     @abstractmethod
-    def remove(self):
+    def remove(self,*args,**kwargs):
         raise NotImplementedError()
 
 
