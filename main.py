@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from Tasks.endpoint import router as tasks_endpoint_router
+from tasks.endpoint import router as tasks_endpoint_router
 from Users.endpoint import router as users_endpoint_router
 
 app = FastAPI()

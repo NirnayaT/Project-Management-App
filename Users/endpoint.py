@@ -3,8 +3,7 @@ from Users.payload import UserCreatePayload, UserLoginPayload
 from Database.database import User
 from Database.database import *
 from sqlalchemy.exc import IntegrityError
-from hash import Hash
-import datetime
+from Users.tokens.hash import Hash
 router = APIRouter()
 
 
