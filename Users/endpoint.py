@@ -21,17 +21,7 @@ def register_user(create_user_data: UserCreatePayload):
     except IntegrityError:
         raise HTTPException(status_code=400, detail="Username or email already registered")
 
-@router.post("/login")
-def login_user(get_user_data: UserLoginPayload):
-    user = session.query(User).filter(User.username == get_user_data.username).first()
-    if not user:
-        raise HTTPException(status_code=400, detail="User not Found")
-    verification = verify_pass(get_user_data.password,user.password_hash)
-    if verification == False:
-        raise HTTPException(status_code=401, details="Incorrect password")
-    elif verification == True:
-        return{"Login":"successfull"}
-    
+
 
 
     
