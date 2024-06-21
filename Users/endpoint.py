@@ -1,9 +1,10 @@
 from fastapi import APIRouter,HTTPException
-from Users.payload import UserCreatePayload, UserLoginPayload
-from Database.database import User
-from Database.database import *
+from users.payload import UserCreatePayload, UserLoginPayload
+from database.database import User
+from database.database import *
 from sqlalchemy.exc import IntegrityError
-from hash import pass_hash, verify_pass
+from hash import Hash
+
 router = APIRouter()
 
 
@@ -13,7 +14,7 @@ def register_user(create_user_data: UserCreatePayload):
         new_user=User(
             username = create_user_data.username,
             email = create_user_data.email,
-            password_hash = pass_hash(create_user_data.password)
+            password_hash = Hash.pass_hash(create_user_data.password)
         )
         session.add(new_user)
         session.commit()
@@ -21,7 +22,3 @@ def register_user(create_user_data: UserCreatePayload):
     except IntegrityError:
         raise HTTPException(status_code=400, detail="Username or email already registered")
 
-
-
-
-    
