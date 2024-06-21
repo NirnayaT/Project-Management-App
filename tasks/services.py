@@ -1,5 +1,5 @@
 from tasks.repository import TaskRepository
-from tasks.database import *
+from Database.database import *
 from tasks.responses import CreateTaskResponse, RemoveTaskResponse
 
 
