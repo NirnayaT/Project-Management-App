@@ -1,5 +1,5 @@
-from tasks.database import *
-from tasks.database import Task
+from Database.database import *
+from Database.database import Task
 from abc import ABC, abstractmethod
 
 class AbstractRepository(

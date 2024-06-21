@@ -1,6 +1,6 @@
-from tasks.repository import TaskRepository
-from tasks.database import *
-from tasks.responses import CreateTaskResponse, RemoveTaskResponse
+from Tasks.repository import TaskRepository
+from Database.database import *
+from Tasks.responses import CreateTaskResponse, RemoveTaskResponse
 
 
 task_instance = TaskRepository()

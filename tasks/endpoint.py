@@ -1,6 +1,6 @@
 from fastapi import APIRouter
-from tasks.services import display_tasks, create_task, remove_task
-from tasks.payload import CreateTaskPayload, RemoveTaskPayload
+from Tasks.services import display_tasks, create_task, remove_task
+from Tasks.payload import CreateTaskPayload, RemoveTaskPayload
 
 
 router = APIRouter()
