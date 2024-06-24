@@ -1,12 +1,11 @@
 from abc import ABC, abstractmethod
 
 
-class AbstractRepository(
-    ABC
-): 
+class AbstractRepository(ABC):
     """
     Adding Repository Layer between database interface and main interface
     """
+
     @abstractmethod
     def get(self):
         raise NotImplementedError()
@@ -19,12 +18,12 @@ class AbstractRepository(
     def remove(self, unique_id: int):
         raise NotImplementedError()
 
-class AbstractRepositoryForUser(
-    ABC
-): 
+
+class AbstractRepositoryForUser(ABC):
     """
     Adding Repository Layer between user interface and main interface
     """
+
     @abstractmethod
     def add(self, *args, **kwargs):
         raise NotImplementedError()

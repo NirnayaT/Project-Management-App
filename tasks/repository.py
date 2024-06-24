@@ -16,9 +16,7 @@ class TaskRepository(AbstractRepository):  # inherits Abstractrepository
         return new_task_obj
 
     def remove(self, task_id: int):
-        remove_task = (
-            session.query(Task).filter(Task.id == task_id).first()
-        )
+        remove_task = session.query(Task).filter(Task.id == task_id).first()
         session.delete(remove_task)
         session.commit()
         return remove_task
