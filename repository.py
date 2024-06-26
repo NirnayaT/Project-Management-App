@@ -17,7 +17,9 @@ class AbstractRepository(ABC):
     @abstractmethod
     def remove(self, unique_id: int):
         raise NotImplementedError()
-
+    @abstractmethod
+    def update(self, unique_id : int, new_description : str):
+        raise NotImplementedError()
 
 class AbstractRepositoryForUser(ABC):
     """
