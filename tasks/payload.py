@@ -1,7 +1,9 @@
 from pydantic import BaseModel
 
+
 class CreateTaskPayload(BaseModel):
-    task : str
+    task: str
+
 
 class RemoveTaskPayload(BaseModel):
-    task_id : int
+    task_id: int

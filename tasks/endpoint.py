@@ -6,14 +6,17 @@ from Users.auth.jwt_bearer import jwtBearer
 
 router = APIRouter()
 
+
 @router.get("/tasks")
 def show_tasks():
     return display_tasks()
 
-@router.post("/tasks",dependencies=[Depends(jwtBearer())])
+
+@router.post("/tasks", dependencies=[Depends(jwtBearer())])
 def add_task(task: CreateTaskPayload):
     return create_task(task), display_tasks()
 
-@router.delete("/tasks",dependencies=[Depends(jwtBearer())])
+
+@router.delete("/tasks", dependencies=[Depends(jwtBearer())])
 def delete_task(task_id: RemoveTaskPayload):
     return remove_task(task_id), display_tasks()

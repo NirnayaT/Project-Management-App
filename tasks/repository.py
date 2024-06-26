@@ -1,22 +1,6 @@
 from Database.database import *
 from Database.database import Task
-from abc import ABC, abstractmethod
-
-class AbstractRepository(
-    ABC
-):  # Adding Repository Layer between database interface and main interface
-
-    @abstractmethod
-    def get(self):
-        raise NotImplementedError()
-
-    @abstractmethod
-    def add(self, *args, **kwargs):
-        raise NotImplementedError()
-
-    @abstractmethod
-    def remove(self,unique_id : int):
-        raise NotImplementedError()
+from repository import AbstractRepository
 
 
 class TaskRepository(AbstractRepository):  # inherits Abstractrepository
@@ -32,9 +16,7 @@ class TaskRepository(AbstractRepository):  # inherits Abstractrepository
         return new_task_obj
 
     def remove(self, task_id: int):
-        remove_task = (
-            session.query(Task).filter(Task.id == task_id).first()
-        )
+        remove_task = session.query(Task).filter(Task.id == task_id).first()
         session.delete(remove_task)
         session.commit()
         return remove_task
