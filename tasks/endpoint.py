@@ -25,4 +25,3 @@ def delete_task(payload: RemoveTaskPayload):
 @router.put("/tasks", dependencies=[Depends(jwtBearer())])
 def update_task(payload: UpdateTaskPayload):
     return task_update(payload), display_tasks(payload.project_id)
-

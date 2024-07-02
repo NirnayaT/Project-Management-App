@@ -29,4 +29,3 @@ class TaskResponse(BaseModel):
     is_complete: str
     created_on: datetime
     project_name: str
-

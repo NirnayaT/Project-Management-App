@@ -27,6 +27,7 @@ def login_user(get_user_data: UserLoginPayload):
         raise HTTPException(status_code=400, detail="User not Found")
     verification = Hash.verify_pass(get_user_data.password, user.password_hash)
     if verification == False:
-        raise HTTPException(status_code=401, details="Incorrect password")
+        raise HTTPException(status_code=401, detail="Incorrect password")
     elif verification == True:
         return signJWT(get_user_data.email)
+    
