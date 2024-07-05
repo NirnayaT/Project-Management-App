@@ -1,5 +1,3 @@
-from typing import Coroutine
-from typing_extensions import Annotated, Doc
 from fastapi import Request, HTTPException
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from Users.auth.jwt_handler import decodeJWT
@@ -16,11 +14,13 @@ class jwtBearer(HTTPBearer):
         if credentials:
             if not credentials.scheme == "Bearer":
                 raise HTTPException(
-                    status_code=403, details="Invalid or Expired Token!"
+                    status_code=403, detail="Invalid authentication scheme."
                 )
+            if not self.verify_jwt(credentials.credentials):
+                raise HTTPException(status_code=403, detail="Invalid or expired token.")
             return credentials.credentials
         else:
-            raise HTTPException(status_code=403, details="Invalid or Expired Token!")
+            raise HTTPException(status_code=403, detail="Invalid authorization code.")
 
     def verify_jwt(self, jwtoken: str):
         isTokenValid: bool = False

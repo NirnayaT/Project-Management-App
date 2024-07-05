@@ -1,40 +1,54 @@
 from fastapi import HTTPException
 from Project.services import get_project_name
-from tasks.payload import CreateTaskPayload, RemoveTaskPayload, UpdateTaskPayload
+from tasks.payload import (
+    CreateTaskPayload,
+    RemoveTaskPayload,
+    ShowTaskPayload,
+    UpdateTaskPayload,
+)
 from tasks.repository import TaskRepository
 from Database.database import *
-from tasks.responses import CreateTaskResponse, RemoveTaskResponse, TaskResponse, UpdateTaskResponse
+from tasks.responses import (
+    CreateTaskResponse,
+    RemoveTaskResponse,
+    TaskResponse,
+    UpdateTaskResponse,
+)
 
 
 task_instance = TaskRepository()
 
 
 def create_task(
-    task_payload: CreateTaskPayload
+    task_payload: CreateTaskPayload,
 ):  # TODO: Set type annotation to CreateTaskPayload
-    new_task = task_instance.add(task_payload.project_id, task_payload.task)
+    new_task = task_instance.add(
+        task_payload.project_id, task_payload.task, task_payload.is_complete
+    )
     project_name = get_project_name(task_payload.project_id)
     return CreateTaskResponse(
         id=new_task.id,
         task=new_task.task,
         is_complete=new_task.is_complete,
         created_on=new_task.created_on,
-        project_name=project_name
+        project_name=project_name,
     )
 
 
-def display_tasks(project_id: int):  # method for main
-    details = task_instance.get(project_id)
-    project_name = get_project_name(project_id)
-    response = [TaskResponse(
-        id=task.id,
-        task=task.task,
-        is_complete=task.is_complete,
-        created_on=task.created_on,
-        project_name=project_name
-    ) for task in details  
+def display_tasks(payload: ShowTaskPayload):  # method for main
+    details = task_instance.get(payload.project_id)
+    project_name = get_project_name(payload.project_id)
+    response = [
+        TaskResponse(
+            id=task.id,
+            task=task.task,
+            is_complete=task.is_complete,
+            created_on=task.created_on,
+            project_name=project_name,
+        )
+        for task in details
     ]
-    return details
+    return response
 
 
 def remove_task(payload: RemoveTaskPayload) -> RemoveTaskResponse:  # method for main
@@ -47,12 +61,14 @@ def remove_task(payload: RemoveTaskPayload) -> RemoveTaskResponse:  # method for
         task=delete_task.task,
         is_complete=delete_task.is_complete,
         created_on=delete_task.created_on,
-        project_name=project_name
+        project_name=project_name,
     )
 
 
 def task_update(payload: UpdateTaskPayload) -> UpdateTaskResponse:
-    updated_task = task_instance.update(payload.project_id, payload.task_id, payload.new_task)
+    updated_task = task_instance.update(
+        payload.project_id, payload.task_id, payload.new_task, payload.is_complete
+    )
     if not updated_task:
         raise HTTPException(status_code=404, detail="Task not found")
     project_name = get_project_name(payload.project_id)
@@ -61,5 +77,5 @@ def task_update(payload: UpdateTaskPayload) -> UpdateTaskResponse:
         new_task=updated_task.task,
         is_complete=updated_task.is_complete,
         created_on=updated_task.created_on,
-        project_name=project_name
+        project_name=project_name,
     )

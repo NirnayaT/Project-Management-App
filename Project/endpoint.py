@@ -7,7 +7,7 @@ from Users.auth.jwt_bearer import jwtBearer
 router = APIRouter()
 
 
-@router.get("/projects")
+@router.get("/projects",dependencies=[Depends(jwtBearer())])
 def show_projects():
     return display_projects()
 
