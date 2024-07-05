@@ -19,7 +19,6 @@ def register_user(create_user_data: UserCreatePayload):
             status_code=400, detail="Username or email already registered"
         )
 
-
 @router.post("/login")
 def login_user(get_user_data: UserLoginPayload):
     user = session.query(User).filter(User.email == get_user_data.email).first()
