@@ -3,7 +3,6 @@ from Project.services import get_project_name
 from tasks.payload import (
     CreateTaskPayload,
     RemoveTaskPayload,
-    ShowTaskPayload,
     UpdateTaskPayload,
 )
 from tasks.repository import TaskRepository
@@ -18,6 +17,11 @@ from tasks.responses import (
 
 task_instance = TaskRepository()
 
+def get_task_name(task_id: int) -> str:
+    task = session.query(Task).filter(Task.id == task_id).first()
+    if not task:
+        raise HTTPException(status_code=404, detail="Task not found")
+    return task.task
 
 def create_task(
     task_payload: CreateTaskPayload,
@@ -35,9 +39,9 @@ def create_task(
     )
 
 
-def display_tasks(payload: ShowTaskPayload):  # method for main
-    details = task_instance.get(payload.project_id)
-    project_name = get_project_name(payload.project_id)
+def display_tasks(project_id):  # method for main
+    details = task_instance.get(project_id)
+    project_name = get_project_name(project_id)
     response = [
         TaskResponse(
             id=task.id,
@@ -48,7 +52,7 @@ def display_tasks(payload: ShowTaskPayload):  # method for main
         )
         for task in details
     ]
-    return response
+    return {"Tasks": response}
 
 
 def remove_task(payload: RemoveTaskPayload) -> RemoveTaskResponse:  # method for main

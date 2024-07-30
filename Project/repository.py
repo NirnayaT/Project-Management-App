@@ -18,8 +18,11 @@ class ProjectRepository(AbstractRepository):
 
     def remove(self, project_id: int):
         remove_project = session.query(Project).filter(Project.id == project_id).first()
-        session.delete(remove_project)
-        session.commit()
+        try:
+            session.delete(remove_project)
+            session.commit()
+        except:
+            session.rollback()
         return remove_project
 
     def update(
@@ -31,3 +34,7 @@ class ProjectRepository(AbstractRepository):
             update_project.description = new_project_description
             session.commit()
         return update_project
+
+    def getproject(self,project_id: int) -> list[Project]:
+        details = session.query(Project).filter(Project.id==project_id).first()
+        return details

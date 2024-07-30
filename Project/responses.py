@@ -24,4 +24,5 @@ class UpdateProjectResponse(BaseModel):
     name: str
     description: str
     created_at: datetime
+    
 
