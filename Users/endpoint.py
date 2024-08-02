@@ -19,6 +19,7 @@ def register_user(create_user_data: UserCreatePayload):
             status_code=400, detail="Username or email already registered"
         )
 
+
 @router.post("/login")
 def login_user(get_user_data: UserLoginPayload):
     user = session.query(User).filter(User.email == get_user_data.email).first()
@@ -27,6 +28,5 @@ def login_user(get_user_data: UserLoginPayload):
     verification = Hash.verify_pass(get_user_data.password, user.password_hash)
     if verification == False:
         raise HTTPException(status_code=401, detail="Incorrect password")
-    elif verification == True:
+    else:
         return signJWT(get_user_data.email)
-    

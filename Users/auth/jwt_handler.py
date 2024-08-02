@@ -4,7 +4,7 @@ import jwt
 
 JWT_SECRET = config("SECRET_KEY")
 JWT_ALGORITHM = config("ALGORITHM")
-REFRESH_TOKEN_EXPIRE_DAYS = 7
+REFRESH_TOKEN_EXPIRE_DAYS = 15
 
 
 def token_response(token: str, refresh_token: str):
@@ -12,7 +12,7 @@ def token_response(token: str, refresh_token: str):
 
 
 def signJWT(userID: str):
-    payload = {"userID": userID, "expiry": time.time() + 60}
+    payload = {"userID": userID, "expiry": time.time() + 300}
     access_token = jwt.encode(payload, JWT_SECRET, algorithm=JWT_ALGORITHM)
     refresh_token = create_refresh_token(userID)
     return token_response(access_token, refresh_token)

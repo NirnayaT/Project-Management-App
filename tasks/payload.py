@@ -1,10 +1,6 @@
 from pydantic import BaseModel
 
 
-class ShowTaskPayload(BaseModel):
-    project_id: int
-
-
 class CreateTaskPayload(BaseModel):
     project_id: int
     task: str
