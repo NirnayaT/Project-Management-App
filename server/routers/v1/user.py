@@ -81,6 +81,14 @@ async def register_user(create_user_data: UserCreatePayload):
             raise HTTPException(
                 status_code=500, detail="Email missing from user object"
             )
+        if not new_user.username:
+            raise HTTPException(
+                status_code=500, detail="Username missing from user object"
+            )
+        if not new_user.password:
+            raise HTTPException(
+                status_code=500, detail="Password missing from user object"
+            )
 
         token = create_verification_token(new_user.email)
         verification_link = (

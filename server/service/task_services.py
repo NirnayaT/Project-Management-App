@@ -45,10 +45,12 @@ def create_task(
     Creates a new task and returns the created task details.
     
     Args:
-        task_payload (CreateTaskPayload): The payload containing the details of the new task to be created.
+        task_payload (CreateTaskPayload): The payload containing the details
+        of the new task to be created.
     
     Returns:
-        list[CreateTaskResponse]: A list containing the details of the newly created task.
+        list[CreateTaskResponse]: A list containing the details of the newly
+        created task.
     
     Raises:
         HTTPException: If there is an error creating the new task.
@@ -94,7 +96,8 @@ def display_tasks(project_id):  # method for main
 
 def display_tasks_user(user_id):  # method for main
     """
-    Retrieves and returns the details of all tasks assigned to the specified user.
+    Retrieves and returns the details of all tasks assigned to the specified
+    user.
     
     Args:
         user_id (int): The ID of the user to retrieve tasks for.
@@ -112,10 +115,12 @@ def remove_task(payload: RemoveTaskPayload):  # method for main
     Removes a task from the system.
     
     Args:
-        payload (RemoveTaskPayload): The payload containing the project ID and task ID of the task to be removed.
+        payload (RemoveTaskPayload): The payload containing the project ID and 
+        task ID of the task to be removed.
     
     Returns:
-        RemoveTaskResponse: A response containing the details of the removed task.
+        RemoveTaskResponse: A response containing the details of the removed 
+        task.
     
     Raises:
         HTTPException: If the task is not found.
@@ -145,10 +150,12 @@ def task_update(payload: UpdateTaskPayload) -> UpdateTaskResponse:
     Updates an existing task in the system.
     
     Args:
-        payload (UpdateTaskPayload): The payload containing the updated task details.
+        payload (UpdateTaskPayload): The payload containing the updated task 
+        details.
     
     Returns:
-        UpdateTaskResponse: A response containing the details of the updated task.
+        UpdateTaskResponse: A response containing the details of the updated 
+        task.
     
     Raises:
         HTTPException: If the task is not found.
