@@ -4,6 +4,12 @@ from config.database import Base
 
 
 class User(Base):
+    """
+    Represents a user in the application. Each user has a unique email address, a username, a hashed password, and flags indicating whether the user is active and verified.
+    
+    Users can be associated with projects, tasks, and images through relationships.
+    """
+        
     __tablename__ = "users"
     id = Column(Integer(), primary_key=True)
     username = Column(String(50), nullable=False)

@@ -14,6 +14,20 @@ class UserRepository(AbstractRepositoryForUser):
         is_active: bool,
         is_verified: bool,
     ):
+        """
+        Adds a new user to the database.
+        
+        Args:
+            new_username (str): The username for the new user.
+            new_email (str): The email address for the new user.
+            password (str): The password for the new user.
+            is_active (bool): Whether the new user is active or not.
+            is_verified (bool): Whether the new user has been verified or not.
+        
+        Returns:
+            User: The newly created user object, or None if an error occurred.
+        """
+                
         try:
             new_user_object = User(
                 username=new_username,

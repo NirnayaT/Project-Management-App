@@ -4,6 +4,19 @@ from datetime import date, datetime
 
 
 class CreateProjectResponse(BaseModel):
+    """
+    Represents the response data for creating a new project.
+    
+    Attributes:
+        id (int): The unique identifier for the project.
+        name (str): The name of the project.
+        description (str): The description of the project.
+        created_at (datetime): The date and time the project was created.
+        start_date (date): The start date of the project.
+        end_date (Optional[date]): The optional end date of the project.
+        owner_id (int): The identifier of the user who owns the project.
+    """
+        
     id: int
     name: str
     description: str
@@ -15,6 +28,19 @@ class CreateProjectResponse(BaseModel):
 
 
 class RemoveProjectResponse(BaseModel):
+    """
+    Represents the response data for removing a project.
+    
+    Attributes:
+        id (int): The unique identifier for the project.
+        name (str): The name of the project.
+        description (str): The description of the project.
+        created_at (datetime): The date and time the project was created.
+        start_date (date): The start date of the project.
+        end_date (Optional[date]): The optional end date of the project.
+        owner_id (int): The identifier of the user who owns the project.
+    """
+        
     id: int
     name: str
     description: str
@@ -25,6 +51,20 @@ class RemoveProjectResponse(BaseModel):
 
 
 class UpdateProjectResponse(BaseModel):
+    """
+    Represents the response data for updating a project.
+    
+    Attributes:
+        id (int): The unique identifier for the project.
+        name (str): The name of the project.
+        description (str): The description of the project.
+        created_at (datetime): The date and time the project was created.
+        start_date (date): The start date of the project.
+        end_date (Optional[date]): The optional end date of the project.
+        owner_id (int): The identifier of the user who owns the project.
+        user_name (Optional[str]): The optional name of the user who updated the project.
+    """
+        
     id: int
     name: str
     description: str
@@ -35,6 +75,19 @@ class UpdateProjectResponse(BaseModel):
     user_name: Optional[str] = None  
 
 class ProjectResponse(BaseModel):
+    """
+    Represents the response data for a project.
+    
+    Attributes:
+        id (int): The unique identifier for the project.
+        name (str): The name of the project.
+        description (str): The description of the project.
+        created_at (datetime): The date and time the project was created.
+        start_date (date): The start date of the project.
+        end_date (Optional[date]): The optional end date of the project.
+        owner_id (int): The identifier of the user who owns the project.
+    """
+        
     id: int
     name: str
     description: str

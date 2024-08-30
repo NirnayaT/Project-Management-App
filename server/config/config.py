@@ -2,6 +2,13 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
 class Settings(BaseSettings):
+    """
+        Defines the application settings using Pydantic's BaseSettings class.
+        
+        The `Settings` class contains various configuration variables for the application, such as database connection details, security settings, email settings, and more. These settings are loaded from environment variables or a `.env` file.
+        
+        The `model_config` attribute specifies the configuration for the Pydantic settings model, including the location of the environment file and how to handle extra variables.
+    """
     DATABASE_URL: str
     SECRET_KEY: str
     ALGORITHM: str

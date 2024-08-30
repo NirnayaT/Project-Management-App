@@ -56,6 +56,23 @@ router = APIRouter(prefix="/user", tags=["User Management"])
 
 @router.post("/register")
 async def register_user(create_user_data: UserCreatePayload):
+    """
+    Asynchronously registers a new user with the provided user data.
+    
+    Args:
+        create_user_data (UserCreatePayload): The user data to create a new user with.
+    
+    Returns:
+        A dictionary with a success message indicating that the registration was successful and the user should check their email for verification.
+    
+    Raises:
+        HTTPException:
+            - If the user creation fails, with a status code of 500 and a detail message of "User creation failed".
+            - If the user's email is missing from the user object, with a status code of 500 and a detail message of "Email missing from user object".
+            - If the username or email is already registered, with a status code of 400 and a detail message of "Username or email already registered".
+            - If there is an error sending the verification email, with a status code of 500 and a detail message of "Failed to send verification email: {error}".
+    """
+        
     try:
         new_user = create_user(create_user_data)
         if not new_user:
@@ -88,6 +105,22 @@ async def register_user(create_user_data: UserCreatePayload):
 
 @router.get("/verify-email")
 def verify_email(token: str):
+    """ 
+    Verifies the email of a user by decoding a verification token and updating the user's is_verified status.
+    
+    Args:
+        token (str): The verification token to decode.
+    
+    Returns:
+        A dictionary with a success message indicating that the email verification was successful.
+    
+    Raises:
+        HTTPException:
+            - If the user is not found, with a status code of 404 and a detail message of "User not found".
+            - If the verification token has expired, with a status code of 400 and a detail message of "Verification token has expired".
+            - If the verification token is invalid, with a status code of 400 and a detail message of "Invalid verification token".
+    """
+        
     try:
         payload = jwt.decode(token, SECRET_KEY, ALGORITHM)
         email = payload.get("email")
@@ -109,6 +142,20 @@ def verify_email(token: str):
 
 @router.post("/login")
 async def login_user(form_data: OAuth2PasswordRequestForm = Depends()):
+    """
+    Authenticates a user and generates access and refresh tokens.
+    
+    Args:
+        form_data (OAuth2PasswordRequestForm): The form data containing the username and password.
+    
+    Returns:
+        dict: A dictionary containing the access token, refresh token, token type, and user information.
+    
+    Raises:
+        HTTPException:
+            - If the user is not authenticated, with a status code of 401 and a detail message of "Incorrect email or password".
+    """
+        
     user = authenticate_user(form_data.username, form_data.password)
     if not user:
         raise HTTPException(
@@ -131,11 +178,31 @@ async def login_user(form_data: OAuth2PasswordRequestForm = Depends()):
 
 @router.get("/all", response_model=list[UsersDetailResponse])
 def get_all_users(current_user: User = Depends(get_current_user)):
+    """
+    Get all users.
+    
+    Args:
+        current_user (User): The current authenticated user.
+    
+    Returns:
+        list[UsersDetailResponse]: A list of user details.
+    """
+        
     return get_users()
 
 
 @router.get("/details", response_model=CombinedResponse)
 async def read_user_detail(current_user: User = Depends(get_current_active_user)):
+    """
+    Reads the user's detail, including their image content converted to base64.
+    
+    Args:
+        current_user (User): The current authenticated user.
+    
+    Returns:
+        User: The current user with their image content converted to base64.
+    """
+        
     current_user.content = image_to_base64(current_user)
     return current_user
 
@@ -145,6 +212,16 @@ async def upload_image(
     file: UploadFile = File(...),  # multipart data
     current_user: User = Depends(get_current_user),
 ):
+    """
+    Uploads an image for the current user.
+
+    Args:
+        file (UploadFile): The uploaded file containing the image.
+        current_user (User): The current authenticated user.
+
+    Returns:
+        Image: The uploaded image.
+    """
 
     user = session.query(User).filter(User.id == current_user.id).first()
     if not user:
@@ -159,6 +236,17 @@ async def upload_image(
 async def image_update(
     file: UploadFile = File(...), current_user: User = Depends(get_current_user)
 ):
+    """
+        Updates the image for the current user.
+        
+        Args:
+            file (UploadFile): The uploaded file containing the image.
+            current_user (User): The current authenticated user.
+        
+        Returns:
+            Image: The updated image.
+        """
+                
     user = session.query(User).filter(User.id == current_user.id).first()
     if not user:
         raise HTTPException(
@@ -173,6 +261,20 @@ def change_password(
     request: PasswordChangePayload,
     current_user: User = Depends(get_current_user),
 ):
+    """
+    Updates the password for the current authenticated user.
+    
+    Args:
+        request (PasswordChangePayload): The payload containing the old password, new password, and confirmation of the new password.
+        current_user (User): The current authenticated user.
+    
+    Raises:
+        HTTPException: If the old password is incorrect, or the new password and confirmation do not match.
+    
+    Returns:
+        dict: A message indicating the password has been reset successfully.
+    """
+        
     if not Hash.verify_password(request.old_password, current_user.password_hash):
         raise HTTPException(status_code=400, detail="Incorrect old password.")
 
@@ -192,11 +294,35 @@ def change_user_details(
     payload: DetailsChangePayload,
     current_user: User = Depends(get_current_user),
 ):
+    """
+    Updates the details (email and username) for the current authenticated user.
+    
+    Args:
+        payload (DetailsChangePayload): The payload containing the new email and username.
+        current_user (User): The current authenticated user.
+    
+    Returns:
+        dict: A message indicating the user details have been updated successfully.
+    """
+        
     return change_details(email=payload.email, username=payload.username, user_id=current_user.id)
 
 
 @router.post("/reset-password")
 async def reset_password(reset_data: ResetPasswordPayload):
+    """
+    Resets the password for a user based on the provided reset token and new password.
+    
+    Args:
+        reset_data (ResetPasswordPayload): A payload containing the reset token and new password.
+    
+    Raises:
+        HTTPException: If the user is not found, the new password and confirm password do not match, or the new password does not meet the complexity requirements.
+    
+    Returns:
+        dict: A message indicating the password reset was successful.
+    """
+        
     email = verify_reset_token(reset_data.token)
 
     user = get_user_by_email(email)
@@ -227,6 +353,20 @@ async def reset_password(reset_data: ResetPasswordPayload):
 
 @router.post("/request-password-reset")
 async def request_password_reset(email: EmailStr, user=Depends(get_user_by_email)):
+    """
+    Sends a password reset email to the user with a reset link.
+    
+    Args:
+        email (EmailStr): The email address of the user to send the reset email to.
+        user (User): The user object retrieved by the `get_user_by_email` dependency.
+    
+    Raises:
+        HTTPException: If the user is not found or if there is an error sending the email.
+    
+    Returns:
+        dict: A message indicating that the password reset email has been sent.
+    """
+        
     if not user:
         raise HTTPException(status_code=404, detail="User not found")
 

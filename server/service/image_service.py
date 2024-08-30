@@ -15,6 +15,20 @@ MAX_FILE_SIZE_BYTES = MAX_FILE_SIZE_MB * 1024 * 1024
 
 
 def save_image(file: UploadFile, user_id: int):
+    """
+    Saves a new image uploaded by the user.
+    
+    Args:
+        file (UploadFile): The uploaded file object.
+        user_id (int): The ID of the user uploading the image.
+    
+    Raises:
+        HTTPException: If the user has already uploaded an image, the file size exceeds the maximum allowed size, or the file format is unsupported.
+    
+    Returns:
+        The created image data.
+    """
+        
     
     existing_image = session.query(Image).filter(Image.user_id == user_id).first()
     
@@ -58,6 +72,13 @@ def save_image(file: UploadFile, user_id: int):
 
 
 def image_to_base64(current_user):
+    """
+    Converts the image associated with the current user to a base64-encoded string.
+    
+    Returns:
+        str: The base64-encoded image data, or raises an HTTPException if the image is not found or the image file is not accessible.
+    """
+        
     image = session.query(Image).filter(Image.user_id == current_user.id).first()
 
     if image:
@@ -78,7 +99,24 @@ def image_to_base64(current_user):
         )
         
 def update_image(file: UploadFile, user_id: int):
-    # Find the existing image for the user
+    """
+    Updates an existing image for the current user.
+    
+    Args:
+        file (UploadFile): The new image file to be uploaded.
+        user_id (int): The ID of the user whose image is being updated.
+    
+    Raises:
+        HTTPException(404): If no image is found for the current user.
+        HTTPException(500): If there is a failure deleting the old image file.
+        HTTPException(400): If the new file size exceeds the maximum allowed size or the file format is not supported.
+        HTTPException(500): If there is a failure saving the new image file.
+    
+    Returns:
+        Image: The newly created image record.
+    """
+        
+
     existing_image = session.query(Image).filter(Image.user_id == user_id).first()
 
     if not existing_image:
@@ -138,6 +176,19 @@ def update_image(file: UploadFile, user_id: int):
     return new_image
 
 def get_user_by_email(email: str):
+    """
+    Retrieves a user by their email address.
+    
+    Args:
+        email (str): The email address of the user to retrieve.
+    
+    Returns:
+        User: The user object if found, otherwise raises an HTTPException with a 404 status code.
+    
+    Raises:
+        HTTPException: If the user is not found, with a 404 status code.
+    """
+        
     user = session.query(User).filter(User.email == email).first()
     if not user:
         raise HTTPException(status_code=404, detail="User not found")

@@ -21,6 +21,13 @@ app.add_middleware(
 
 @app.get("/")
 def main():
+    """
+    Renders the HTML response for the root path ("/") of the FastAPI application.
+    
+    Returns:
+        HTMLResponse: The HTML response to be returned to the client.
+    """
+        
     return HTMLResponse(html)  # {"Welcome": "to Project Management App."}
 
 

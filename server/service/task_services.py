@@ -19,6 +19,19 @@ task_instance = TaskRepository()
 
 
 def get_task_name(task_id: int) -> str:
+    """
+    Retrieves the task name for the given task ID.
+    
+    Args:
+        task_id (int): The ID of the task to retrieve the name for.
+    
+    Returns:
+        str: The name of the task.
+    
+    Raises:
+        HTTPException: If the task with the given ID is not found.
+    """
+        
     task = session.query(Task).filter(Task.id == task_id).first()
     if not task:
         raise HTTPException(status_code=404, detail="Task not found")
@@ -28,6 +41,19 @@ def get_task_name(task_id: int) -> str:
 def create_task(
     task_payload: CreateTaskPayload,
 ) -> list[CreateTaskResponse]:
+    """
+    Creates a new task and returns the created task details.
+    
+    Args:
+        task_payload (CreateTaskPayload): The payload containing the details of the new task to be created.
+    
+    Returns:
+        list[CreateTaskResponse]: A list containing the details of the newly created task.
+    
+    Raises:
+        HTTPException: If there is an error creating the new task.
+    """
+        
     new_task = task_instance.add(
         task_payload.project_id,
         task_payload.task,
@@ -53,15 +79,48 @@ def create_task(
 
 
 def display_tasks(project_id):  # method for main
+    """
+    Retrieves and returns the details of all tasks for the specified project.
+    
+    Args:
+        project_id (int): The ID of the project to retrieve tasks for.
+    
+    Returns:
+        list: A list of task details for the specified project.
+    """
+        
     details = task_instance.get(project_id)
     return details
 
 def display_tasks_user(user_id):  # method for main
+    """
+    Retrieves and returns the details of all tasks assigned to the specified user.
+    
+    Args:
+        user_id (int): The ID of the user to retrieve tasks for.
+    
+    Returns:
+        list: A list of task details for the specified user.
+    """
+        
     details = task_instance.get_by_user(user_id)
     return details
 
 
 def remove_task(payload: RemoveTaskPayload):  # method for main
+    """
+    Removes a task from the system.
+    
+    Args:
+        payload (RemoveTaskPayload): The payload containing the project ID and task ID of the task to be removed.
+    
+    Returns:
+        RemoveTaskResponse: A response containing the details of the removed task.
+    
+    Raises:
+        HTTPException: If the task is not found.
+    """
+        
     delete_task = task_instance.remove(payload.project_id, payload.task_id)
     if not delete_task:
         raise HTTPException(status_code=404, detail="Task not found")
@@ -82,6 +141,19 @@ def remove_task(payload: RemoveTaskPayload):  # method for main
 
 
 def task_update(payload: UpdateTaskPayload) -> UpdateTaskResponse:
+    """
+    Updates an existing task in the system.
+    
+    Args:
+        payload (UpdateTaskPayload): The payload containing the updated task details.
+    
+    Returns:
+        UpdateTaskResponse: A response containing the details of the updated task.
+    
+    Raises:
+        HTTPException: If the task is not found.
+    """
+        
     updated_task = task_instance.update(
         project_id=payload.project_id,
         task_id=payload.task_id,
