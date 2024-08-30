@@ -28,6 +28,10 @@ class TokenData(BaseModel):
     email: Optional[str] = None
 
 
+<<<<<<< HEAD:server/utils/tokens/jwt_handler.py
+=======
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
+>>>>>>> 727e267977f9f425154a0ab509e9f07372a8e2bb:utils/auth/jwt_handler.py
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="/api/v1/user/login")
 
 
