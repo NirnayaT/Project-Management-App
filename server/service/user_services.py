@@ -18,10 +18,12 @@ def create_user(user_data: UserCreatePayload):
     Create a new user account with the provided user data.
     
     Args:
-        user_data (UserCreatePayload): The user data to create a new account, including username, email, and password.
+        user_data (UserCreatePayload): The user data to create 
+        a new account, including username, email, and password.
     
     Raises:
-        HTTPException: If the password does not meet the required complexity criteria.
+        HTTPException: If the password does not meet the 
+        required complexity criteria.
         HTTPException: If the user already exists.
     
     Returns:
@@ -98,7 +100,8 @@ def change_details(username: str, email: EmailStr, user_id: int):
         user_id (int): The ID of the user whose details are being updated.
     
     Returns:
-        dict: A dictionary containing a message indicating which details were changed successfully.
+        dict: A dictionary containing a message indicating which details 
+        were changed successfully.
     
     Raises:
         HTTPException: If the user's details could not be changed.

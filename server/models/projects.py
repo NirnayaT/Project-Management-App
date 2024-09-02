@@ -6,7 +6,9 @@ from config.database import Base
 
 class Project(Base):
     """
-    Represents a project in the application. A project has a name, description, creation date, owner, start date, and end date. It is associated with one or more tasks.
+    Represents a project in the application. A project has a name, 
+    description, creation date, owner, start date, and end date. 
+    It is associated with one or more tasks.
     """
 
     __tablename__ = "projects"

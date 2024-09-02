@@ -60,17 +60,26 @@ async def register_user(create_user_data: UserCreatePayload):
     Asynchronously registers a new user with the provided user data.
     
     Args:
-        create_user_data (UserCreatePayload): The user data to create a new user with.
+        create_user_data (UserCreatePayload): The user data to create 
+        a new user with.
     
     Returns:
-        A dictionary with a success message indicating that the registration was successful and the user should check their email for verification.
+        A dictionary with a success message indicating that the registration
+        was successful and the user should check their email for verification.
     
     Raises:
         HTTPException:
-            - If the user creation fails, with a status code of 500 and a detail message of "User creation failed".
-            - If the user's email is missing from the user object, with a status code of 500 and a detail message of "Email missing from user object".
-            - If the username or email is already registered, with a status code of 400 and a detail message of "Username or email already registered".
-            - If there is an error sending the verification email, with a status code of 500 and a detail message of "Failed to send verification email: {error}".
+            - If the user creation fails, with a status code of 500 and a 
+            detail message of "User creation failed".
+            - If the user's email is missing from the user object, with a
+            status code of 500 and a detail message of "Email missing 
+            from user object".
+            - If the username or email is already registered, with a 
+            status code of 400 and a detail message of "Username or 
+            email already registered".
+            - If there is an error sending the verification email, 
+            with a status code of 500 and a detail message of 
+            "Failed to send verification email: {error}".
     """
         
     try:
@@ -114,19 +123,26 @@ async def register_user(create_user_data: UserCreatePayload):
 @router.get("/verify-email")
 def verify_email(token: str):
     """ 
-    Verifies the email of a user by decoding a verification token and updating the user's is_verified status.
+    Verifies the email of a user by decoding a verification 
+    token and updating the user's is_verified status.
     
     Args:
         token (str): The verification token to decode.
     
     Returns:
-        A dictionary with a success message indicating that the email verification was successful.
+        A dictionary with a success message indicating that 
+        the email verification was successful.
     
     Raises:
         HTTPException:
-            - If the user is not found, with a status code of 404 and a detail message of "User not found".
-            - If the verification token has expired, with a status code of 400 and a detail message of "Verification token has expired".
-            - If the verification token is invalid, with a status code of 400 and a detail message of "Invalid verification token".
+            - If the user is not found, with a status code 
+            of 404 and a detail message of "User not found".
+            - If the verification token has expired, with a 
+            status code of 400 and a detail message of 
+            "Verification token has expired".
+            - If the verification token is invalid, with a 
+            status code of 400 and a detail message of 
+            "Invalid verification token".
     """
         
     try:
@@ -154,14 +170,17 @@ async def login_user(form_data: OAuth2PasswordRequestForm = Depends()):
     Authenticates a user and generates access and refresh tokens.
     
     Args:
-        form_data (OAuth2PasswordRequestForm): The form data containing the username and password.
+        form_data (OAuth2PasswordRequestForm): The form data containing
+        the username and password.
     
     Returns:
-        dict: A dictionary containing the access token, refresh token, token type, and user information.
+        dict: A dictionary containing the access token, refresh token,
+        token type, and user information.
     
     Raises:
         HTTPException:
-            - If the user is not authenticated, with a status code of 401 and a detail message of "Incorrect email or password".
+            - If the user is not authenticated, with a status code of 401
+            and a detail message of "Incorrect email or password".
     """
         
     user = authenticate_user(form_data.username, form_data.password)
@@ -202,7 +221,8 @@ def get_all_users(current_user: User = Depends(get_current_user)):
 @router.get("/details", response_model=CombinedResponse)
 async def read_user_detail(current_user: User = Depends(get_current_active_user)):
     """
-    Reads the user's detail, including their image content converted to base64.
+    Reads the user's detail, including their image content converted
+    to base64.
     
     Args:
         current_user (User): The current authenticated user.
@@ -274,11 +294,13 @@ def change_password(
     Updates the password for the current authenticated user.
     
     Args:
-        request (PasswordChangePayload): The payload containing the old password, new password, and confirmation of the new password.
+        request (PasswordChangePayload): The payload containing the 
+        old password, new password, and confirmation of the new password.
         current_user (User): The current authenticated user.
     
     Raises:
-        HTTPException: If the old password is incorrect, or the new password and confirmation do not match.
+        HTTPException: If the old password is incorrect, or the new password
+        and confirmation do not match.
     
     Returns:
         dict: A message indicating the password has been reset successfully.
@@ -304,14 +326,17 @@ def change_user_details(
     current_user: User = Depends(get_current_user),
 ):
     """
-    Updates the details (email and username) for the current authenticated user.
+    Updates the details (email and username) for the current authenticated 
+    user.
     
     Args:
-        payload (DetailsChangePayload): The payload containing the new email and username.
+        payload (DetailsChangePayload): The payload containing the new email
+        and username.
         current_user (User): The current authenticated user.
     
     Returns:
-        dict: A message indicating the user details have been updated successfully.
+        dict: A message indicating the user details have been updated 
+        successfully.
     """
         
     return change_details(email=payload.email, username=payload.username, user_id=current_user.id)
@@ -320,13 +345,17 @@ def change_user_details(
 @router.post("/reset-password")
 async def reset_password(reset_data: ResetPasswordPayload):
     """
-    Resets the password for a user based on the provided reset token and new password.
+    Resets the password for a user based on the provided reset token 
+    and new password.
     
     Args:
-        reset_data (ResetPasswordPayload): A payload containing the reset token and new password.
+        reset_data (ResetPasswordPayload): A payload containing the reset
+        token and new password.
     
     Raises:
-        HTTPException: If the user is not found, the new password and confirm password do not match, or the new password does not meet the complexity requirements.
+        HTTPException: If the user is not found, the new password and 
+        confirm password do not match, or the new password does not meet
+        the complexity requirements.
     
     Returns:
         dict: A message indicating the password reset was successful.
@@ -366,14 +395,18 @@ async def request_password_reset(email: EmailStr, user=Depends(get_user_by_email
     Sends a password reset email to the user with a reset link.
     
     Args:
-        email (EmailStr): The email address of the user to send the reset email to.
-        user (User): The user object retrieved by the `get_user_by_email` dependency.
+        email (EmailStr): The email address of the user to send
+        the reset email to.
+        user (User): The user object retrieved by the `get_user_by_email` 
+        dependency.
     
     Raises:
-        HTTPException: If the user is not found or if there is an error sending the email.
+        HTTPException: If the user is not found or if there is an
+        error sending the email.
     
     Returns:
-        dict: A message indicating that the password reset email has been sent.
+        dict: A message indicating that the password reset email
+        has been sent.
     """
         
     if not user:

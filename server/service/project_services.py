@@ -44,12 +44,14 @@ def create_project(payload: CreateProjectPayload,owner_id: int, user_name: str):
     Creates a new project in the system.
     
     Args:
-        payload (CreateProjectPayload): The payload containing the details of the new project.
+        payload (CreateProjectPayload): The payload containing the details
+        of the new project.
         owner_id (int): The ID of the user who is creating the project.
         user_name (str): The name of the user who is creating the project.
     
     Returns:
-        dict: A dictionary containing the details of the newly created project.
+        dict: A dictionary containing the details of the newly created 
+        project.
     
     Raises:
         HTTPException: If the owner with the given ID is not found.
@@ -82,14 +84,16 @@ def create_project(payload: CreateProjectPayload,owner_id: int, user_name: str):
 
 def display_projects(owner_id, user_name):  # method for main
     """
-    Retrieves a list of projects for the given owner ID and returns a response containing the project details.
+    Retrieves a list of projects for the given owner ID and returns a 
+    response containing the project details.
     
     Args:
         owner_id (int): The ID of the user who owns the projects.
         user_name (str): The name of the user who is requesting the projects.
     
     Returns:
-        dict: A dictionary containing a list of `ProjectResponse` objects, each representing a project.
+        dict: A dictionary containing a list of `ProjectResponse` objects, 
+        each representing a project.
     
     Raises:
         HTTPException: If no projects are found for the given owner ID.
@@ -119,11 +123,14 @@ def remove_project(payload: RemoveProjectPayload, user_name: str):  # method for
     Removes a project from the system based on the provided payload.
     
     Args:
-        payload (RemoveProjectPayload): The payload containing the project ID to be removed.
-        user_name (str): The name of the user who is requesting the project removal.
+        payload (RemoveProjectPayload): The payload containing the 
+        project ID to be removed.
+        user_name (str): The name of the user who is requesting the 
+        project removal.
     
     Returns:
-        dict: A dictionary containing a `RemoveProjectResponse` object, which represents the removed project.
+        dict: A dictionary containing a `RemoveProjectResponse` object, 
+        which represents the removed project.
     
     Raises:
         HTTPException: If the project with the provided ID is not found.
@@ -151,11 +158,14 @@ def project_update(payload: UpdateProjectPayload, user_name: str) -> UpdateProje
     Updates an existing project in the system with the provided payload.
     
     Args:
-        payload (UpdateProjectPayload): The payload containing the updated project details.
-        user_name (str): The name of the user who is requesting the project update.
+        payload (UpdateProjectPayload): The payload containing the 
+        updated project details.
+        user_name (str): The name of the user who is requesting the 
+        project update.
     
     Returns:
-        UpdateProjectResponse: A response object containing the updated project details.
+        UpdateProjectResponse: A response object containing the updated 
+        project details.
     
     Raises:
         HTTPException: If the project with the provided ID is not found.

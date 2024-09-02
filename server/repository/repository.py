@@ -3,7 +3,7 @@ from abc import ABC, abstractmethod
 
 class AbstractRepository(ABC):
     """
-    Adding Repository Layer between database interface and main interface
+    Adding Repository Layer between database interface and main interface.
     """
 
     @abstractmethod

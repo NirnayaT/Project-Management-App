@@ -24,7 +24,8 @@ class TaskRepository(AbstractRepository):  # inherits Abstractrepository
             project_id (int): The ID of the project to retrieve tasks for.
         
         Returns:
-            list[Task]: A list of Task objects associated with the specified project ID.
+            list[Task]: A list of Task objects associated with the 
+            specified project ID.
         """
                 
         details = session.query(Task).filter(Task.project_id == project_id).all()
@@ -39,7 +40,8 @@ class TaskRepository(AbstractRepository):  # inherits Abstractrepository
             user_id (int): The ID of the user to retrieve tasks for.
         
         Returns:
-            list[Task]: A list of Task objects associated with the specified user ID.
+            list[Task]: A list of Task objects associated with the 
+            specified user ID.
         """
                 
         details = session.query(Task).filter(Task.assignee_id == user_id).all()
@@ -70,7 +72,8 @@ class TaskRepository(AbstractRepository):  # inherits Abstractrepository
             Task: The newly created task object.
         
         Raises:
-            HTTPException: If there is an error adding the task to the database.
+            HTTPException: If there is an error adding the task to the 
+            database.
         """
                 
         print(status.upper())
@@ -131,7 +134,8 @@ class TaskRepository(AbstractRepository):  # inherits Abstractrepository
         Updates an existing task in the database.
         
         Args:
-            project_id (int): The ID of the project the task belongs to.
+            project_id (int): The ID of the project the task 
+            belongs to.
             task_id (int): The ID of the task to update.
             new_task (str): The new task text.
             status (str): The new task status.
@@ -140,10 +144,12 @@ class TaskRepository(AbstractRepository):  # inherits Abstractrepository
             due_date (date): The new due date.
         
         Returns:
-            Task: The updated task object, or None if the task was not found.
+            Task: The updated task object, or None if the task was not 
+            found.
         
         Raises:
-            HTTPException: If there is an error updating the task in the database.
+            HTTPException: If there is an error updating the task in the 
+            database.
         """
                 
         if status is not None:

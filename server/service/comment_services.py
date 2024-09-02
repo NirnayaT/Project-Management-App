@@ -20,14 +20,17 @@ comment_instance = CommentRepository()
 
 async def create_comment(comment_payload: CreateCommentPayload, owner_id : int):
     """
-    Adds a new comment to a task and broadcasts the new comment to connected clients.
+    Adds a new comment to a task and broadcasts the 
+    new comment to connected clients.
     
     Args:
-        comment_payload (CreateCommentPayload): The payload containing the comment text and task ID.
+        comment_payload (CreateCommentPayload): The payload containing 
+        the comment text and task ID.
         owner_id (int): The ID of the user who is creating the comment.
     
     Returns:
-        CreateCommentResponse: A response object containing the details of the newly created comment.
+        CreateCommentResponse: A response object containing the details
+        of the newly created comment.
     """
         
     new_comment = comment_instance.add(
@@ -48,13 +51,16 @@ async def create_comment(comment_payload: CreateCommentPayload, owner_id : int):
 
 async def remove_comment(payload: RemoveCommentPayload) -> RemoveCommentResponse:
     """
-    Removes a comment from a task and broadcasts the removal to connected clients.
+    Removes a comment from a task and broadcasts the removal to
+    connected clients.
     
     Args:
-        payload (RemoveCommentPayload): The payload containing the task ID and comment ID of the comment to be removed.
+        payload (RemoveCommentPayload): The payload containing the
+        task ID and comment ID of the comment to be removed.
     
     Returns:
-        RemoveCommentResponse: A response object containing the details of the removed comment.
+        RemoveCommentResponse: A response object containing the 
+        details of the removed comment.
     
     Raises:
         HTTPException: If the comment is not found(404).
@@ -76,13 +82,16 @@ async def remove_comment(payload: RemoveCommentPayload) -> RemoveCommentResponse
 
 async def update_comment(payload: UpdateCommentPayload) -> UpdateCommentResponse:
     """
-    Updates an existing comment for a task and broadcasts the update to connected clients.
+    Updates an existing comment for a task and broadcasts 
+    the update to connected clients.
     
     Args:
-        payload (UpdateCommentPayload): The payload containing the task ID, comment ID, and the new comment text.
+        payload (UpdateCommentPayload): The payload containing 
+        the task ID, comment ID, and the new comment text.
     
     Returns:
-        UpdateCommentResponse: A response object containing the details of the updated comment.
+        UpdateCommentResponse: A response object containing 
+        the details of the updated comment.
     
     Raises:
         HTTPException: If the comment is not found(404).
@@ -112,7 +121,8 @@ async def display_comments(task_id):  # method for main
         task_id (str): The ID of the task to retrieve comments for.
     
     Returns:
-        dict: A dictionary containing a list of CommentResponse objects, each representing a comment for the specified task.
+        dict: A dictionary containing a list of CommentResponse
+        objects, each representing a comment for the specified task.
     """
         
     details = comment_instance.get(task_id)

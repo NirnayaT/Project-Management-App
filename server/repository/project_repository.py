@@ -7,28 +7,36 @@ from models.projects import Project
 
 class ProjectRepository(AbstractRepository):
     """
-    The `ProjectRepository` class is an implementation of the `AbstractRepository` class that provides methods for managing projects in the application.
+    The `ProjectRepository` class is an implementation of the 
+    `AbstractRepository` class that provides methods for managing 
+    projects in the application.
     
-    The `get` method retrieves a list of projects for a given owner ID. If no projects are found, it returns `None`.
+    The `get` method retrieves a list of projects for a given owner ID. 
+    If no projects are found, it returns `None`.
     
-    The `add` method creates a new project with the provided details and saves it to the database.
+    The `add` method creates a new project with the provided details 
+    and saves it to the database.
     
-    The `remove` method deletes a project with the given ID from the database. If the project does not exist, it returns `None`.
+    The `remove` method deletes a project with the given ID from the 
+    database. If the project does not exist, it returns `None`.
     
-    The `update` method updates the details of an existing project with the given ID. If the project does not exist, it returns `None`.
+    The `update` method updates the details of an existing project with 
+    the given ID. If the project does not exist, it returns `None`.
     
     The `get_project` method retrieves a single project with the given ID.
     """
         
     def get(self, owner_id) -> list[Project]:
         """
-        Retrieves a list of projects for the given owner ID. If no projects are found, returns `None`.
+        Retrieves a list of projects for the given owner ID. If no projects 
+        are found, returns `None`.
         
         Args:
             owner_id (int): The ID of the project owner.
         
         Returns:
-            list[Project] or None: A list of `Project` objects, or `None` if no projects are found.
+            list[Project] or None: A list of `Project` objects, or `None` 
+            if no projects are found.
         """
                 
         details = session.query(Project).filter(Project.owner_id == owner_id).all()
@@ -55,7 +63,8 @@ class ProjectRepository(AbstractRepository):
             project_description (str): The description of the new project.
             owner_id (int): The ID of the project owner.
             start_date (date): The start date of the project.
-            end_date (Optional[date]): The end date of the project, if provided.
+            end_date (Optional[date]): The end date of the project, 
+            if provided.
         
         Returns:
             Project: The newly created project object.
@@ -80,7 +89,8 @@ class ProjectRepository(AbstractRepository):
             project_id (int): The ID of the project to remove.
         
         Returns:
-            Project or None: The removed project object, or None if the project does not exist or an error occurred during removal.
+            Project or None: The removed project object, or None if 
+            the project does not exist or an error occurred during removal.
         """
                 
         remove_project = session.query(Project).filter(Project.id == project_id).first()
@@ -114,7 +124,8 @@ class ProjectRepository(AbstractRepository):
             end_date (date): The new end date for the project.
         
         Returns:
-            Project: The updated project object, or None if the project does not exist or an error occurred during the update.
+            Project: The updated project object, or None if the project 
+            does not exist or an error occurred during the update.
         """
                 
         update_project = session.query(Project).filter(Project.id == project_id).first()
@@ -138,7 +149,8 @@ class ProjectRepository(AbstractRepository):
             project_id (int): The ID of the project to retrieve.
         
         Returns:
-            Project or None: The retrieved project object, or None if the project does not exist.
+            Project or None: The retrieved project object, or None if 
+            the project does not exist.
         """
                 
         details = session.query(Project).filter(Project.id == project_id).first()

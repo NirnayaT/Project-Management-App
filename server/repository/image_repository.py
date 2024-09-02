@@ -7,18 +7,26 @@ from repository.repository import AbstractRepository
 
 class ImageRepository(AbstractRepository):
     """
-    Provides an implementation of the `AbstractRepositoryForImages` interface for managing image data in the database.
+    Provides an implementation of the `AbstractRepositoryForImages`
+    interface for managing image data in the database.
     
-    The `ImageRepository` class provides methods for creating and deleting image records in the database.
+    The `ImageRepository` class provides methods for creating and 
+    deleting image records in the database.
     
-    The `create_image` method takes an `ImageCreate` schema object and creates a new `Image` record in the database, committing the changes and returning the created `Image` object.
+    The `create_image` method takes an `ImageCreate` schema object 
+    and creates a new `Image` record in the database, committing the 
+    changes and returning the created `Image` object.
     
-    The `delete_image` method takes an `image_id` integer and deletes the corresponding `Image` record from the database, if it exists. If the image is not found, it raises an `HTTPException` with a 404 status code.
+    The `delete_image` method takes an `image_id` integer and deletes 
+    the corresponding `Image` record from the database, if it exists. 
+    If the image is not found, it raises an `HTTPException` with a 404 
+    status code.
     """
         
     def add(self, image: ImageCreate):
         """
-        Creates a new image record in the database based on the provided `ImageCreate` schema.
+        Creates a new image record in the database based on the provided
+        `ImageCreate` schema.
         
         Args:
             image (ImageCreate): The image data to be created.
@@ -42,16 +50,20 @@ class ImageRepository(AbstractRepository):
         """
         Deletes an image record from the database by the given `image_id`.
         
-        If the image is found, it is deleted from the database and `True` is returned. If the image is not found, an `HTTPException` with a 404 status code is raised.
+        If the image is found, it is deleted from the database and `True` 
+        is returned. If the image is not found, an `HTTPException` with a 
+        404 status code is raised.
         
         Args:
             image_id (int): The ID of the image to be deleted.
         
         Returns:
-            bool: `True` if the image was successfully deleted, `False` otherwise.
+            bool: `True` if the image was successfully deleted, 
+            `False` otherwise.
         
         Raises:
-            HTTPException: If the image with the given `image_id` is not found in the database.
+            HTTPException: If the image with the given `image_id` is not 
+            found in the database.
         """
         
         db_image = session.query(Image).filter(Image.id == image_id).first()

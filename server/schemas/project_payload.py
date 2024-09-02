@@ -5,7 +5,8 @@ from datetime import date
 
 class CreateProjectPayload(BaseModel):
     """
-    Defines a Pydantic model for the payload of a request to create a new project.
+    Defines a Pydantic model for the payload of a request to create 
+    a new project.
     """
         
     project_name: str
@@ -16,7 +17,8 @@ class CreateProjectPayload(BaseModel):
 
 class RemoveProjectPayload(BaseModel):
     """
-    Defines a Pydantic model for the payload of a request to remove a project.
+    Defines a Pydantic model for the payload of a request to remove 
+    a project.
 
     """
         
@@ -25,7 +27,8 @@ class RemoveProjectPayload(BaseModel):
 
 class UpdateProjectPayload(BaseModel):
     """
-    Defines a Pydantic model for the payload of a request to update an existing project.
+    Defines a Pydantic model for the payload of a request to update 
+    an existing project.
 
     """
         

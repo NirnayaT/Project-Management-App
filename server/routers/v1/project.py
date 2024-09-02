@@ -31,11 +31,13 @@ def add_project(
     Adds a new project for the current user.
     
     Args:
-        payload (CreateProjectPayload): The payload containing the details of the new project.
+        payload (CreateProjectPayload): The payload containing 
+        the details of the new project.
         current_user (User): The current authenticated user.
     
     Returns:
-        The response from the `create_project` function, which likely includes the newly created project.
+        The response from the `create_project` function, which 
+        likely includes the newly created project.
     """
         
     return create_project(payload, current_user.id, current_user.username)
@@ -50,7 +52,8 @@ def show_projects(current_user: User = Depends(get_current_user)):
         current_user (User): The current authenticated user.
     
     Returns:
-        The response from the `display_projects` function, which likely includes a list of projects for the current user.
+        The response from the `display_projects` function, which likely
+        includes a list of projects for the current user.
     """
         
     return display_projects(current_user.id, current_user.username)
@@ -64,11 +67,13 @@ def update_project(
     Updates an existing project for the current authenticated user.
     
     Args:
-        payload (UpdateProjectPayload): The payload containing the updated details of the project.
+        payload (UpdateProjectPayload): The payload containing the 
+        updated details of the project.
         current_user (User): The current authenticated user.
     
     Returns:
-        The response from the `project_update` function, which likely includes the updated project details.
+        The response from the `project_update` function, which likely 
+        includes the updated project details.
     """
         
     return project_update(payload, current_user.username)
@@ -82,11 +87,13 @@ def delete_project(
     Deletes an existing project for the current authenticated user.
     
     Args:
-        payload (RemoveProjectPayload): The payload containing the details of the project to be deleted.
+        payload (RemoveProjectPayload): The payload containing the 
+        details of the project to be deleted.
         current_user (User): The current authenticated user.
     
     Returns:
-        The response from the `remove_project` function, which likely includes the result of the delete operation.
+        The response from the `remove_project` function, which likely 
+        includes the result of the delete operation.
     """
         
     return remove_project(payload, current_user.username)
@@ -95,14 +102,16 @@ def delete_project(
 @router.get("/project/show")
 def get_project(project_id: int, current_user: User = Depends(get_current_user)):
     """
-    Retrieves the details of a specific project for the current authenticated user.
+    Retrieves the details of a specific project for the current 
+    authenticated user.
     
     Args:
         project_id (int): The ID of the project to retrieve.
         current_user (User): The current authenticated user.
     
     Returns:
-        The response from the `display_project` function, which likely includes the details of the requested project.
+        The response from the `display_project` function, which 
+        likely includes the details of the requested project.
     """
         
     return display_project(project_id)

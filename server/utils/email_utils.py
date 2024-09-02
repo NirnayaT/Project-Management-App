@@ -15,7 +15,8 @@ conf = ConnectionConfig(
 
 async def send_reset_email(email: str, reset_link: str):
     """
-    Sends a password reset email to the specified email address with a reset link.
+    Sends a password reset email to the specified email 
+    address with a reset link.
     
     Args:
         email (str): The email address to send the reset email to.
@@ -36,7 +37,8 @@ async def send_reset_email(email: str, reset_link: str):
 
 async def send_verification_email(email: str, verification_link: str):
     """
-    Sends a verification email to the specified email address with a verification link.
+    Sends a verification email to the specified email address with a 
+    verification link.
     
     Args:
         email (str): The email address to send the verification email to.

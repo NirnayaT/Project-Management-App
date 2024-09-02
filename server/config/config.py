@@ -10,9 +10,9 @@ class Settings(BaseSettings):
         email settings, and more. These settings are loaded from environment 
         variables or a `.env` file.
         
-        The `model_config` attribute specifies the configuration for the Pydantic 
-        settings model, including the location of the environment file and how to 
-        handle extra variables.
+        The `model_config` attribute specifies the configuration for the 
+        Pydantic settings model, including the location of the environment 
+        file and how to handle extra variables.
     """
     DATABASE_URL: str
     SECRET_KEY: str
