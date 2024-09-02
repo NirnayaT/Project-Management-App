@@ -44,7 +44,7 @@ from utils.tokens.jwt_handler import (
     get_current_user,
 )
 import re
-import jwt
+import jwt 
 
 ACCESS_TOKEN_EXPIRE_MINUTES = Config.ACCESS_TOKEN_EXPIRE_MINUTES
 REFRESH_TOKEN_EXPIRE_DAYS = Config.REFRESH_TOKEN_EXPIRE_DAYS
@@ -85,7 +85,7 @@ async def register_user(create_user_data: UserCreatePayload):
             raise HTTPException(
                 status_code=500, detail="Username missing from user object"
             )
-        if not new_user.password:
+        if not new_user.password_hash:
             raise HTTPException(
                 status_code=500, detail="Password missing from user object"
             )
@@ -210,8 +210,9 @@ async def read_user_detail(current_user: User = Depends(get_current_active_user)
     Returns:
         User: The current user with their image content converted to base64.
     """
-        
-    current_user.content = image_to_base64(current_user)
+    image = image_to_base64(current_user)
+    if image:
+        current_user.content = image 
     return current_user
 
 
@@ -264,7 +265,7 @@ async def image_update(
     return image
 
 
-@router.patch("/change-password")
+@router.put("/change-password")
 def change_password(
     request: PasswordChangePayload,
     current_user: User = Depends(get_current_user),
