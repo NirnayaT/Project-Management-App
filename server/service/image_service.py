@@ -68,7 +68,7 @@ def save_image(file: UploadFile, user_id: int):
     )
 
     image_repo = ImageRepository()
-    return image_repo.create_image(image_data)
+    return image_repo.add(image_data)
 
 
 def image_to_base64(current_user):
@@ -93,10 +93,11 @@ def image_to_base64(current_user):
 
         return base64_image
 
-    else:
-        raise HTTPException(
-            status_code=404, detail="Image not found for the current user"
-        )
+    # else:
+    #     raise HTTPException(
+    #         status_code=404, detail="Image not found for the current user"
+    #     )
+    
         
 def update_image(file: UploadFile, user_id: int):
     """
@@ -132,7 +133,7 @@ def update_image(file: UploadFile, user_id: int):
     
     # Remove the existing image record from the database
     image_repo = ImageRepository()
-    image_repo.delete_image(existing_image.id)
+    image_repo.remove(existing_image.id)
 
     # Handle the new image upload
     upload_directory = "images"
@@ -171,7 +172,7 @@ def update_image(file: UploadFile, user_id: int):
     )
     
     # Save the new image in the database
-    new_image = image_repo.create_image(image_data)
+    new_image = image_repo.add(image_data)
     
     return new_image
 

@@ -6,7 +6,7 @@ from routers.api import router as api_router
 from htmlexample import html
 from fastapi.staticfiles import StaticFiles
 
-file_path = "C:/Users/nirna/OneDrive/Desktop/To-do-app/server/images"
+file_path = "C:/Users/nirna/OneDrive/Desktop/ProjectManagamentApp/server/images"
 
 app = FastAPI()
 

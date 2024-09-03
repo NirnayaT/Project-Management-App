@@ -2,10 +2,10 @@ from fastapi import HTTPException
 from config.database import session
 from models.images import Image
 from schemas.image import ImageCreate
-from repository.repository import AbstractRepositoryForImages
+from repository.repository import AbstractRepository
 
 
-class ImageRepository(AbstractRepositoryForImages):
+class ImageRepository(AbstractRepository):
     """
     Provides an implementation of the `AbstractRepositoryForImages` interface for managing image data in the database.
     
@@ -16,7 +16,7 @@ class ImageRepository(AbstractRepositoryForImages):
     The `delete_image` method takes an `image_id` integer and deletes the corresponding `Image` record from the database, if it exists. If the image is not found, it raises an `HTTPException` with a 404 status code.
     """
         
-    def create_image(self, image: ImageCreate):
+    def add(self, image: ImageCreate):
         """
         Creates a new image record in the database based on the provided `ImageCreate` schema.
         
@@ -38,7 +38,7 @@ class ImageRepository(AbstractRepositoryForImages):
         session.refresh(db_image)
         return db_image
     
-    def delete_image(self, image_id: int):
+    def remove(self, image_id: int):
         """
         Deletes an image record from the database by the given `image_id`.
         
@@ -62,3 +62,9 @@ class ImageRepository(AbstractRepositoryForImages):
             return True
         else:
             raise HTTPException(status_code=404, detail="Image not found")
+        
+    def update():
+        pass
+    
+    def get():
+        pass

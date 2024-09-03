@@ -59,7 +59,7 @@ def show_tasks(project_id, current_user: User = Depends(get_current_user)):
     "/show/user",
     response_model=list[TaskResponse],
 )
-def show_tasks(current_user: User = Depends(get_current_user)):
+def show_user_task(current_user: User = Depends(get_current_user)):
     """
     Retrieves and returns a list of tasks for the specified user.
     

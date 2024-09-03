@@ -21,21 +21,4 @@ class AbstractRepository(ABC):
     @abstractmethod
     def update(self, unique_id: int, new_description: str):
         raise NotImplementedError()
-
-
-class AbstractRepositoryForUser(ABC):
-    """
-    Adding Repository Layer between user interface and main interface
-    """
-
-    @abstractmethod
-    def add(self, *args, **kwargs):
-        raise NotImplementedError()
-
-class AbstractRepositoryForImages(ABC):
-    """
-    Adding Repository Layer between image interface and main interface
-    """
-    @abstractmethod
-    def create_image(self, *args, **kwargs):
-        raise NotImplementedError()
+    
