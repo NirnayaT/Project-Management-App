@@ -39,6 +39,7 @@ def get_task_name(task_id: int) -> str:
 
 
 def create_task(
+    project_id: int,
     task_payload: CreateTaskPayload,
 ) -> list[CreateTaskResponse]:
     """
@@ -57,7 +58,7 @@ def create_task(
     """
         
     new_task = task_instance.add(
-        task_payload.project_id,
+        project_id,
         task_payload.task,
         task_payload.status,
         task_payload.priority,
@@ -110,7 +111,7 @@ def display_tasks_user(user_id):  # method for main
     return details
 
 
-def remove_task(payload: RemoveTaskPayload):  # method for main
+def remove_task(project_id: int, payload: RemoveTaskPayload):  # method for main
     """
     Removes a task from the system.
     
@@ -126,10 +127,10 @@ def remove_task(payload: RemoveTaskPayload):  # method for main
         HTTPException: If the task is not found.
     """
         
-    delete_task = task_instance.remove(payload.project_id, payload.task_id)
+    delete_task = task_instance.remove(project_id, payload.task_id)
     if not delete_task:
         raise HTTPException(status_code=404, detail="Task not found")
-    project_name = get_project_name(payload.project_id)
+    project_name = get_project_name(project_id)
     return {
         "Removed": RemoveTaskResponse(
             id=delete_task.id,
@@ -145,7 +146,7 @@ def remove_task(payload: RemoveTaskPayload):  # method for main
     }
 
 
-def task_update(payload: UpdateTaskPayload) -> UpdateTaskResponse:
+def task_update(project_id: int, payload: UpdateTaskPayload) -> UpdateTaskResponse:
     """
     Updates an existing task in the system.
     
@@ -162,7 +163,7 @@ def task_update(payload: UpdateTaskPayload) -> UpdateTaskResponse:
     """
         
     updated_task = task_instance.update(
-        project_id=payload.project_id,
+        project_id=project_id,
         task_id=payload.task_id,
         new_task=payload.new_task,
         status=payload.status,
@@ -172,7 +173,7 @@ def task_update(payload: UpdateTaskPayload) -> UpdateTaskResponse:
     )
     if not updated_task:
         raise HTTPException(status_code=404, detail="Task not found")
-    project_name = get_project_name(payload.project_id)
+    project_name = get_project_name(project_id)
     return {
         "Updated": UpdateTaskResponse(
             id=updated_task.id,

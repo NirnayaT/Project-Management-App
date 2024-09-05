@@ -236,8 +236,8 @@ async def read_user_detail(current_user: User = Depends(get_current_active_user)
     return current_user
 
 
-@router.post("/upload-image", response_model=ImageResponse)
-async def upload_image(
+@router.post("/image/upload", response_model=ImageResponse)
+async def upload_profile_image(
     file: UploadFile = File(...),  # multipart data
     current_user: User = Depends(get_current_user),
 ):
@@ -262,7 +262,7 @@ async def upload_image(
 
 
 @router.put("/image/update")
-async def image_update(
+async def profile_image_update(
     file: UploadFile = File(...), current_user: User = Depends(get_current_user)
 ):
     """

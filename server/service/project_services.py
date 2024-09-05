@@ -3,7 +3,6 @@ from models.projects import Project
 from models.users import User
 from schemas.project_payload import (
     CreateProjectPayload,
-    RemoveProjectPayload,
     UpdateProjectPayload,
 )
 from repository.project_repository import ProjectRepository
@@ -22,41 +21,41 @@ project_instance = ProjectRepository()
 def get_project_name(project_id: int) -> str:
     """
     Retrieves the name of a project by its ID.
-    
+
     Args:
         project_id (int): The ID of the project to retrieve the name for.
-    
+
     Returns:
         str: The name of the project.
-    
+
     Raises:
         HTTPException: If the project with the given ID is not found.
     """
-        
+
     project = session.query(Project).filter(Project.id == project_id).first()
     if not project:
         raise HTTPException(status_code=404, detail="Project not found")
     return project.name
 
 
-def create_project(payload: CreateProjectPayload,owner_id: int, user_name: str):
+def create_project(payload: CreateProjectPayload, owner_id: int, user_name: str):
     """
     Creates a new project in the system.
-    
+
     Args:
         payload (CreateProjectPayload): The payload containing the details
         of the new project.
         owner_id (int): The ID of the user who is creating the project.
         user_name (str): The name of the user who is creating the project.
-    
+
     Returns:
-        dict: A dictionary containing the details of the newly created 
+        dict: A dictionary containing the details of the newly created
         project.
-    
+
     Raises:
         HTTPException: If the owner with the given ID is not found.
     """
-        
+
     owner = session.query(User).filter(User.id == owner_id).first()
     if not owner:
         raise HTTPException(status_code=404, detail="Owner not found")
@@ -64,7 +63,7 @@ def create_project(payload: CreateProjectPayload,owner_id: int, user_name: str):
     new_project = project_instance.add(
         payload.project_name,
         payload.project_description,
-        user_name,
+        owner_id,
         payload.start_date,
         payload.end_date,
     )
@@ -84,21 +83,21 @@ def create_project(payload: CreateProjectPayload,owner_id: int, user_name: str):
 
 def display_projects(owner_id, user_name):  # method for main
     """
-    Retrieves a list of projects for the given owner ID and returns a 
+    Retrieves a list of projects for the given owner ID and returns a
     response containing the project details.
-    
+
     Args:
         owner_id (int): The ID of the user who owns the projects.
         user_name (str): The name of the user who is requesting the projects.
-    
+
     Returns:
-        dict: A dictionary containing a list of `ProjectResponse` objects, 
+        dict: A dictionary containing a list of `ProjectResponse` objects,
         each representing a project.
-    
+
     Raises:
         HTTPException: If no projects are found for the given owner ID.
     """
-        
+
     details = project_instance.get(owner_id)
     if not details:
         raise HTTPException(status_code=404, detail="Project not found")
@@ -118,25 +117,25 @@ def display_projects(owner_id, user_name):  # method for main
     return {"Projects": response}
 
 
-def remove_project(payload: RemoveProjectPayload, user_name: str):  # method for main
+def remove_project(project_id: int, user_name: str):  # method for main
     """
     Removes a project from the system based on the provided payload.
-    
+
     Args:
-        payload (RemoveProjectPayload): The payload containing the 
+        payload (RemoveProjectPayload): The payload containing the
         project ID to be removed.
-        user_name (str): The name of the user who is requesting the 
+        user_name (str): The name of the user who is requesting the
         project removal.
-    
+
     Returns:
-        dict: A dictionary containing a `RemoveProjectResponse` object, 
+        dict: A dictionary containing a `RemoveProjectResponse` object,
         which represents the removed project.
-    
+
     Raises:
         HTTPException: If the project with the provided ID is not found.
     """
-        
-    delete_project = project_instance.remove(payload.project_id)
+
+    delete_project = project_instance.remove(project_id)
     if not delete_project:
         raise HTTPException(status_code=404, detail="Project not found")
     return {
@@ -153,26 +152,28 @@ def remove_project(payload: RemoveProjectPayload, user_name: str):  # method for
     }
 
 
-def project_update(payload: UpdateProjectPayload, user_name: str) -> UpdateProjectResponse:
+def project_update(
+    project_id: int, payload: UpdateProjectPayload, user_name: str
+) -> UpdateProjectResponse:
     """
     Updates an existing project in the system with the provided payload.
-    
+
     Args:
-        payload (UpdateProjectPayload): The payload containing the 
+        payload (UpdateProjectPayload): The payload containing the
         updated project details.
-        user_name (str): The name of the user who is requesting the 
+        user_name (str): The name of the user who is requesting the
         project update.
-    
+
     Returns:
-        UpdateProjectResponse: A response object containing the updated 
+        UpdateProjectResponse: A response object containing the updated
         project details.
-    
+
     Raises:
         HTTPException: If the project with the provided ID is not found.
     """
-        
+
     updated_project = project_instance.update(
-        project_id=payload.project_id,
+        project_id=project_id,
         new_project_name=payload.new_project_name,
         new_project_description=payload.new_project_description,
         start_date=payload.start_date,
@@ -197,13 +198,13 @@ def project_update(payload: UpdateProjectPayload, user_name: str) -> UpdateProje
 def display_project(project_id):
     """
     Retrieves the details of a project with the given project ID.
-    
+
     Args:
         project_id (int): The ID of the project to retrieve.
-    
+
     Returns:
         dict: A dictionary containing the details of the project.
     """
-        
+
     details = project_instance.get_project(project_id)
     return details
