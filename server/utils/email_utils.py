@@ -15,7 +15,8 @@ conf = ConnectionConfig(
 
 async def send_reset_email(email: str, reset_link: str):
     """
-    Sends a password reset email to the specified email address with a reset link.
+    Sends a password reset email to the specified email 
+    address with a reset link.
     
     Args:
         email (str): The email address to send the reset email to.
@@ -28,7 +29,14 @@ async def send_reset_email(email: str, reset_link: str):
     message = MessageSchema(
         subject="Password Reset Request",
         recipients=[email],
-        body=f"Click the following link to reset your password: {reset_link}",
+        body=f"""
+        <html>
+            <body>
+                <p>Click the following link to reset your password:</p>
+                <a href="{reset_link}">Reset Password</a>
+            </body>
+        </html>
+        """,
         subtype="html"
     )
     fm = FastMail(config=conf)
@@ -36,7 +44,8 @@ async def send_reset_email(email: str, reset_link: str):
 
 async def send_verification_email(email: str, verification_link: str):
     """
-    Sends a verification email to the specified email address with a verification link.
+    Sends a verification email to the specified email address with a 
+    verification link.
     
     Args:
         email (str): The email address to send the verification email to.
@@ -49,7 +58,14 @@ async def send_verification_email(email: str, verification_link: str):
     message = MessageSchema(
         subject="Email Verification",
         recipients=[email],
-        body=f"Click the following link to verify your email: {verification_link}",
+        body=f"""
+            <html>
+            <body>
+                <p>Click the following link to verify your email:</p>
+                <a href="{verification_link}">Verify</a>
+            </body>
+        </html>
+        """,
         subtype="html"
     )
     fm = FastMail(config=conf)

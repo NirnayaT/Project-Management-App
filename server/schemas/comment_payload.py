@@ -5,7 +5,7 @@ class CreateCommentPayload(BaseModel):
     """
     Represents the payload for creating a new comment on a task.
     """
-        
+    
     task_id: int
     comment: str
 

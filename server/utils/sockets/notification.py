@@ -7,7 +7,8 @@ def get_greeting():
     Returns a greeting message based on the current local time.
     
     Returns:
-        str: A greeting message, either "Good Morning!", "Good Afternoon!", or "Good Evening!"
+        str: A greeting message, either "Good Morning!", 
+        "Good Afternoon!", or "Good Evening!"
     """
         
     timezone = get_localzone()

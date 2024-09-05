@@ -7,15 +7,18 @@ from config.database import Base
 
 class Task(Base):
     """
-    Defines the Task model, which represents a task in a project. The Task model has the following fields:
+    Defines the Task model, which represents a task in a project. 
+    The Task model has the following fields:
     
     - id (Integer): The unique identifier for the task.
     - task (String): The title or description of the task.
-    - status (TaskStatus): The current status of the task, which can be one of the values defined in the TaskStatus enumeration.
+    - status (TaskStatus): The current status of the task, which can be one 
+    of the values defined in the TaskStatus enumeration.
     - created_on (DateTime): The date and time when the task was created.
     - project_id (Integer): The ID of the project that the task belongs to.
     - due_date (Date): The date when the task is due.
-    - priority (TaskPriority): The priority of the task, which can be one of the values defined in the TaskPriority enumeration.
+    - priority (TaskPriority): The priority of the task, which can be one 
+    of the values defined in the TaskPriority enumeration.
     - assignee_id (Integer): The ID of the user who is assigned to the task.
     
     The Task model has the following relationships:

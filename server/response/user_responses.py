@@ -27,7 +27,8 @@ class UserResponse(BaseModel):
 
 class CombinedResponse(UserResponse):
     """
-    Represents a combined response, including the user's details as well as additional content.
+    Represents a combined response, including the user's 
+    details as well as additional content.
     """
 
     content: str = None
