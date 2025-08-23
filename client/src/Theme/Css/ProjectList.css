@@ -1,0 +1,14 @@
+.titleFont{
+    font-family: "Mona Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: black;
+
+}
+
+.projectList:hover{
+    cursor: pointer;
+    background-color: #f5f5f5;
+}
+.HeroContent{
+    height: 25rem;
+    overflow-y: scroll;
+}

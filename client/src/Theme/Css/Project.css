@@ -1,0 +1,39 @@
+.inputFields{
+    position: absolute;
+    /* border: 1px solid red;  */
+    z-index: 111;
+  
+
+}
+.inputFields:focus { 
+    box-shadow: none !important;
+}
+.inputFields:hover{
+    border-color: red;
+     transition: border 500ms;  
+}  
+
+
+ .input-field-div{
+    margin:20px 0;
+    position:relative;
+    display:inline-block;
+}
+/* 
+.project-label {
+    padding:10px;
+    pointer-events: none;
+    position:absolute;
+    left:0;
+    top:0;
+    transition: 0.2s;
+    transition-timing-function: ease;
+    transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1);
+    opacity:0.5;
+    background: #fff;
+} */
+
+.inputFields {
+    padding:10px;
+}
+

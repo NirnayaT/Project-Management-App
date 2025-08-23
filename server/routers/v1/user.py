@@ -46,6 +46,7 @@ from utils.tokens.jwt_handler import (
 import re
 import jwt 
 
+
 ACCESS_TOKEN_EXPIRE_MINUTES = Config.ACCESS_TOKEN_EXPIRE_MINUTES
 REFRESH_TOKEN_EXPIRE_DAYS = Config.REFRESH_TOKEN_EXPIRE_DAYS
 SECRET_KEY = Config.SECRET_KEY
