@@ -5,7 +5,7 @@ services:
     container_name: postgres_database
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: admin123
+      POSTGRES_PASSWORD: postgres
       POSTGRES_DB: ProjectManagementApp
     volumes:
       - pgdata:/var/lib/postgresql/data
