@@ -1,4 +1,4 @@
-version: '3.8'
+version: "3.8"
 services:
   db:
     image: postgres:latest
@@ -6,7 +6,7 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: admin123
-      POSTGRES_DB: ProjectManagementApp 
+      POSTGRES_DB: ProjectManagementApp
     volumes:
       - pgdata:/var/lib/postgresql/data
     ports:
